@@ -1,0 +1,62 @@
+
+<div class="row vh-100">
+        <div class="col col-xxl-2 border">
+            <button (click)="toggleDisplay()" class="btn btn-warning b1">Surgery</button>
+        </div>
+        
+        <div class="col col-xxl-10 justify-content-center align-items-center" [hidden]="isDisplay">
+
+            <div class="container">
+                <div class="heading">Create Surgery</div>
+                <a class="button" href="#">Create</a>
+            </div>
+            <hr class="line">
+
+            <div >
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Surgery Name</th>
+                            <th>Patient </th>
+                            <th>Doctors</th>
+                            <th>Surgery Date</th>
+                            <th>Tools</th>
+                            <th>Priority</th>
+                            <th>Notes</th>
+                            <th> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of data">
+                            <td>{{i.type}}</td>
+                            <td>{{i.surgeryName}}</td>
+                            <td>{{i.patient}}</td>
+                            <td>{{i.doctors}}</td>
+                            <td>{{i.surgeryDate}}</td>
+                            <td>{{i.tools}}</td>
+                            <td>{{i.priority}}</td>
+                            <td>{{i.notes}}</td>
+                            <td><button   class="btn btn-outline-warning">Edit</button>
+                            <button   class="btn btn-outline-danger">Delete</button></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                                                 </div>
+
+
+
+
+        </div> 
+        
+        
+                  
+
+
+</div>
+   
+
+    
+   
+
