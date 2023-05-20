@@ -7,12 +7,14 @@ import {HttpClientModule} from'@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateComponent } from './create/create.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { CreateSurgeryPageComponent } from './create-surgery-page/create-surgery-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateComponent,
-    NavigationComponent
+    NavigationComponent,
+    CreateSurgeryPageComponent
   ],
   imports: [
     BrowserModule,

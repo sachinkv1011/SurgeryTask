@@ -1,12 +1,4 @@
-.b1{
-    width: 105%;
-    border-radius: 0;
-    margin-top: 40px;
-}
-
-
-
-/* .container {
+.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,10 +20,3 @@
     font-size: 16px;
     border: none;
   }
-
-  .line {
-    border: none;
-    height: 1px;
-    background-color: #000;
-    margin: 20px 0;
-  } */
