@@ -1,7 +1,10 @@
 
 <div class="container">
     <div class="heading">Create Surgery</div>
-    <a class="button" href="#">Create</a>
+    <!-- <a class="button" href="#">Create</a> -->
+    <button type="button" class="btn btn-warning button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Create
+    </button>
 </div>
 <hr class="line">
 
@@ -36,4 +39,75 @@
             </tr>
         </tbody>
     </table>
+
+               
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Surgery Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+
+              <form  class="row g-3">
+                <div class="form-group col-xxl-6">
+                    <label for="type">Type</label>
+                    <input type="text" class="form-control" id="type" placeholder="Enter type" [(ngModel)]="surgery.type" name="type">
+                </div>
+                <div class="form-group col-xxl-6">
+                    <label for="surgery">Surgery Name</label>
+                    <input type="text" class="form-control" id="surgery" placeholder="Enter surgery name" [(ngModel)]="surgery.surgeryName" name="surgeryName">
+                </div>
+                <div class="form-group col-xxl-6 ">
+                    <label for="patient">Patient Name</label>
+                    <input type="text" class="form-control" id="patient" placeholder="Enter patient name" [(ngModel)]="surgery.patient" name="patient">
+                </div>
+                <div class="form-group col-xxl-6">
+                    <label for="priority">Priority</label>
+                    <select class="form-control" id="priority" [(ngModel)]="surgery.priority" name="priority">
+                        <option selected>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+               
+                <div class="form-group">
+                    <label for="options">Tools Required</label>
+                    <select  class="form-control" id="tools"   formControlName="selectedTool" (change)="addTool()">
+                        <option>select</option>
+                        <option *ngFor="let t of toolsList" [value]="t">{{t}}</option>
+                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="doctors">Select Doctors</label>
+                    <input type="text" class="form-control" id="doctors" placeholder="Enter doctor's name" [(ngModel)]="surgery.doctor" name="doctor">
+                </div>
+                <div class="form-group">
+                    <label for="date">Select Date</label>
+                    <input type="date" class="form-control" id="date" [(ngModel)]="surgery.surgeryDate" name="surgeryDate">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea class="form-control" id="notes" rows="3" placeholder="Enter notes" [(ngModel)]="surgery.notes" name="notes"></textarea>
+                </div>
+
+
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="createSurgery()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

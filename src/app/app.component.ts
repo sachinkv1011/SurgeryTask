@@ -10,16 +10,6 @@ export class AppComponent {
   title = 'SergeryApp';
 
 
-  // constructor(private api:ApiService){
-   
-  //     api.viewSurgeryList().subscribe(
-  //       response=>{
-  //         console.log(response)
-  //         this.data=response;
-  //       }
-  //     )
-    
-  // }
-  //  data:any=[]
+  
 
 }
