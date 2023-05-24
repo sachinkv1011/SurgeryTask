@@ -6,7 +6,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Route, Router, Routes } from '@angular/router';
 import {MatChipInputEvent,MatChipEditedEvent,MatChipsModule} from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ViewChild, ElementRef} from '@angular/core';
 
 
@@ -139,6 +138,7 @@ console.log(this.bioSection.value)
           this.fetchTools();
           this.fetchDoc();
           this.selectedDoctors=[]
+          this.bioSection.reset();
           this.closeAddExpenseModal.nativeElement.click();
 
 
@@ -185,7 +185,14 @@ removeDoctor(doc: any): void {
 }
 
 
+formClose(){
 
+  this.bioSection.reset();
+  this.fetchDoc();
+  this.selectedDoctors=[]
+  this.closeAddExpenseModal.nativeElement.click();
+
+}
 
 
  

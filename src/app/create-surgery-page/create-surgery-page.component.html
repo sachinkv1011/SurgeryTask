@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="heading">Create Surgery</div>
-    <!-- <a class="button" href="#">Create</a> -->
+    
     <button type="button" class="btn btn-warning button" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Create
     </button>
@@ -79,8 +79,7 @@
                     <label for="options">Tools Required</label>
                     <!-- <select  class="form-control" id="tools"   formControlName="selectedTool" >
                         <option>select</option>
-                        <option *ngFor="let t of toolsList" [value]="t">{{t}}</option>
-                       
+                        <option *ngFor="let t of toolsList" [value]="t">{{t}}</option>                      
                     </select> -->
                     <div style="width:50%">
                         <ng-multiselect-dropdown
@@ -91,21 +90,23 @@
 
                 </div>
                 
+             <div class="form-group border">
+
                 <label *ngIf="doctorsList.length!=0" for="options">Doctors</label>
-                <!-- <mat-chip-option>
-                    <mat-chip-row *ngFor="let doctors of doctorsList">{{ doctors }}</mat-chip-row>
-                </mat-chip-option> -->
 
                 <mat-chip-listbox>
-                    <mat-chip-option *ngFor="let doc of doctorsList" [disabled]=" option[this.doctorsList.indexOf(doc)] != null||option[this.doctorsList.indexOf(doc)] === false" [selected]="" (selectionChange)="changeSelected(doc)" [removable]="true" (removed)="removeDoctor(doc)">
+                    <mat-chip-option *ngFor="let doc of doctorsList" [disabled]=" option[this.doctorsList.indexOf(doc)] != null || option[this.doctorsList.indexOf(doc)] === false" [selected]="" (selectionChange)="changeSelected(doc)" [removable]="true" (removed)="removeDoctor(doc)">
                       {{doc}}
                       <mat-icon matChipRemove></mat-icon>
                     </mat-chip-option>
                   </mat-chip-listbox>
 
-                  <label *ngIf="selectedDoctors.length!=0"  for="options">Selected Doctors</label>
+                  
+
+                  <label *ngIf="selectedDoctors.length!=0"  for="options"><b> Selected Doctors</b></label>
                   
                   <mat-chip-listbox>
+                    <hr>
                     <mat-chip-option *ngFor="let doc of selectedDoctors"  [selected]="" (selectionChange)="changeSelected2(doc)" [removable]="true" (removed)="removeDoctor(doc)">
                       {{doc}}
                       <mat-icon matChipRemove></mat-icon>
@@ -113,8 +114,7 @@
                   </mat-chip-listbox>
                   
                   
-
-        
+                </div >
 
                 <div class="form-group">
                     <label for="date">Select Date</label>
@@ -131,7 +131,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary"  (click)="formClose()">Close</button>
           <button type="button" class="btn btn-primary" (click)="createSurgery()">Create</button>
         </div>
       </div>
