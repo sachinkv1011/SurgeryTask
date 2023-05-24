@@ -48,27 +48,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Surgery Details</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeAddExpenseModal></button>
         </div>
         <div class="modal-body">
           
 
-              <form  class="row g-3">
+              <form [formGroup]="bioSection" class="row g-3">
                 <div class="form-group col-xxl-6">
                     <label for="type">Type</label>
-                    <input type="text" class="form-control" id="type" placeholder="Enter type" [(ngModel)]="surgery.type" name="type">
+                    <input type="text" class="form-control" id="type" placeholder="Enter type" formControlName="type" [(ngModel)]="type"  name="type">
                 </div>
                 <div class="form-group col-xxl-6">
                     <label for="surgery">Surgery Name</label>
-                    <input type="text" class="form-control" id="surgery" placeholder="Enter surgery name" [(ngModel)]="surgery.surgeryName" name="surgeryName">
+                    <input type="text" class="form-control" id="surgery" placeholder="Enter surgery name" formControlName="surgeryName" [(ngModel)]="surgeryName"   name="surgeryName">
                 </div>
                 <div class="form-group col-xxl-6 ">
                     <label for="patient">Patient Name</label>
-                    <input type="text" class="form-control" id="patient" placeholder="Enter patient name" [(ngModel)]="surgery.patient" name="patient">
+                    <input type="text" class="form-control" id="patient" placeholder="Enter patient name" formControlName="patient"  [(ngModel)]="patient" name="patient">
                 </div>
                 <div class="form-group col-xxl-6">
                     <label for="priority">Priority</label>
-                    <select class="form-control" id="priority" [(ngModel)]="surgery.priority" name="priority">
+                    <select class="form-control" id="priority" formControlName="priority" [(ngModel)]="priority"  name="priority">
                         <option selected>Low</option>
                         <option>Medium</option>
                         <option>High</option>
@@ -77,23 +77,52 @@
                
                 <div class="form-group">
                     <label for="options">Tools Required</label>
-                    <select  class="form-control" id="tools"   formControlName="selectedTool" (change)="addTool()">
+                    <!-- <select  class="form-control" id="tools"   formControlName="selectedTool" >
                         <option>select</option>
                         <option *ngFor="let t of toolsList" [value]="t">{{t}}</option>
                        
-                    </select>
+                    </select> -->
+                    <div style="width:50%">
+                        <ng-multiselect-dropdown
+                            [settings]="dropdownSettings"
+                            [data]="toolsList" [(ngModel)]="tools" formControlName="tools">
+                        </ng-multiselect-dropdown>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label for="doctors">Select Doctors</label>
-                    <input type="text" class="form-control" id="doctors" placeholder="Enter doctor's name" [(ngModel)]="surgery.doctor" name="doctor">
-                </div>
+                
+                <label *ngIf="doctorsList.length!=0" for="options">Doctors</label>
+                <!-- <mat-chip-option>
+                    <mat-chip-row *ngFor="let doctors of doctorsList">{{ doctors }}</mat-chip-row>
+                </mat-chip-option> -->
+
+                <mat-chip-listbox>
+                    <mat-chip-option *ngFor="let doc of doctorsList" [disabled]=" option[this.doctorsList.indexOf(doc)] != null||option[this.doctorsList.indexOf(doc)] === false" [selected]="" (selectionChange)="changeSelected(doc)" [removable]="true" (removed)="removeDoctor(doc)">
+                      {{doc}}
+                      <mat-icon matChipRemove></mat-icon>
+                    </mat-chip-option>
+                  </mat-chip-listbox>
+
+                  <label *ngIf="selectedDoctors.length!=0"  for="options">Selected Doctors</label>
+                  
+                  <mat-chip-listbox>
+                    <mat-chip-option *ngFor="let doc of selectedDoctors"  [selected]="" (selectionChange)="changeSelected2(doc)" [removable]="true" (removed)="removeDoctor(doc)">
+                      {{doc}}
+                      <mat-icon matChipRemove></mat-icon>
+                    </mat-chip-option>
+                  </mat-chip-listbox>
+                  
+                  
+
+        
+
                 <div class="form-group">
                     <label for="date">Select Date</label>
-                    <input type="date" class="form-control" id="date" [(ngModel)]="surgery.surgeryDate" name="surgeryDate">
+                    <input type="date" class="form-control" id="date" formControlName="surgeryDate" [(ngModel)]="surgeryDate"  name="surgeryDate">
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" id="notes" rows="3" placeholder="Enter notes" [(ngModel)]="surgery.notes" name="notes"></textarea>
+                    <textarea class="form-control" id="notes" rows="3" placeholder="Enter notes" formControlName="notes" [(ngModel)]="notes"  name="notes"></textarea>
                 </div>
 
 
