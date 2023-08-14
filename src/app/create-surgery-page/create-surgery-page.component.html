@@ -1,7 +1,7 @@
 
-<div class="container">
+<div class="container" >
     <div class="heading">Create Surgery</div>
-    <!-- <a class="button" href="#">Create</a> -->
+    
     <button type="button" class="btn btn-warning button" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Create
     </button>
@@ -9,7 +9,8 @@
 <hr class="line">
 
 <div >
-    <table class="table table-bordered ">
+  <div class="table-container">
+    <table class="table table-bordered " style="width: 100%;" >
         <thead>
             <tr>
                 <th>Type</th>
@@ -39,6 +40,7 @@
             </tr>
         </tbody>
     </table>
+  </div>
 
                
   
@@ -48,52 +50,85 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Surgery Details</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeAddExpenseModal  ></button>
         </div>
         <div class="modal-body">
           
 
-              <form  class="row g-3">
+              <form [formGroup]="bioSection" class="row g-3">
                 <div class="form-group col-xxl-6">
                     <label for="type">Type</label>
-                    <input type="text" class="form-control" id="type" placeholder="Enter type" [(ngModel)]="surgery.type" name="type">
+                    <input type="text" class="form-control" id="type" placeholder="Enter type" formControlName="type" [(ngModel)]="type"  name="type" required="true" >
+                    <!-- <div class="validateColor" *ngIf="this.bioSection.get('typeControll')?.hasError('required')" [hidden]="isDisplay2">*Type is required</div> -->
                 </div>
                 <div class="form-group col-xxl-6">
                     <label for="surgery">Surgery Name</label>
-                    <input type="text" class="form-control" id="surgery" placeholder="Enter surgery name" [(ngModel)]="surgery.surgeryName" name="surgeryName">
+                    <input type="text" class="form-control" id="surgery" placeholder="Enter surgery name" formControlName="surgeryName" [(ngModel)]="surgeryName"   name="surgeryName" >
+                    <!-- <div class="validateColor" *ngIf="this.bioSection.get('typeControll2')?.hasError('required')"  [hidden]="isDisplay2">*SurgeryName is required</div> -->
                 </div>
                 <div class="form-group col-xxl-6 ">
                     <label for="patient">Patient Name</label>
-                    <input type="text" class="form-control" id="patient" placeholder="Enter patient name" [(ngModel)]="surgery.patient" name="patient">
-                </div>
+                    <input type="text" class="form-control" id="patient" placeholder="Enter patient name" formControlName="patient"  [(ngModel)]="patient" name="patient" >
+                    <!-- <div class="validateColor" *ngIf="this.bioSection.get('typeControll3')?.hasError('required')" [hidden]="isDisplay2">*Patient name required</div> -->
+                  </div>
                 <div class="form-group col-xxl-6">
                     <label for="priority">Priority</label>
-                    <select class="form-control" id="priority" [(ngModel)]="surgery.priority" name="priority">
+                    <select class="form-control" id="priority" formControlName="priority" [(ngModel)]="priority"  name="priority">
                         <option selected>Low</option>
                         <option>Medium</option>
                         <option>High</option>
                     </select>
+                    
                 </div>
                
                 <div class="form-group">
                     <label for="options">Tools Required</label>
-                    <select  class="form-control" id="tools"   formControlName="selectedTool" (change)="addTool()">
-                        <option>select</option>
-                        <option *ngFor="let t of toolsList" [value]="t">{{t}}</option>
-                       
-                    </select>
+                   
+                    <div style="width:100%">
+                        <ng-multiselect-dropdown
+                            [settings]="dropdownSettings"
+                            [data]="toolsList" [(ngModel)]="tools" formControlName="tools">
+                        </ng-multiselect-dropdown>
+                    </div>
+
                 </div>
                 <div class="form-group">
-                    <label for="doctors">Select Doctors</label>
-                    <input type="text" class="form-control" id="doctors" placeholder="Enter doctor's name" [(ngModel)]="surgery.doctor" name="doctor">
-                </div>
-                <div class="form-group">
-                    <label for="date">Select Date</label>
-                    <input type="date" class="form-control" id="date" [(ngModel)]="surgery.surgeryDate" name="surgeryDate">
-                </div>
+                  <label for="date">Select Date</label>
+                  <input type="date" class="form-control" id="date" formControlName="surgeryDate" [(ngModel)]="surgeryDate"  name="surgeryDate" >
+                  <!-- <div class="validateColor" *ngIf="this.bioSection.get('typeControll4')?.hasError('required')" [hidden]="isDisplay2">*Date is required</div> -->
+              </div>
+                
+             <div class="form-group border">
+
+                <label *ngIf="doctorsList.length!=0" for="options">Doctors</label>
+
+                <mat-chip-listbox>
+                    <mat-chip-option *ngFor="let doc of doctorsList" [disabled]=" option[this.doctorsList.indexOf(doc)] != null || option[this.doctorsList.indexOf(doc)] === false" [selected]="" (selectionChange)="changeSelected(doc)" [removable]="true" (removed)="removeDoctor(doc)">
+                      {{doc}}
+                      <mat-icon matChipRemove></mat-icon>
+                    </mat-chip-option>
+                  </mat-chip-listbox>
+
+                  
+
+                  <label *ngIf="selectedDoctors.length!=0"  for="options"><b> Selected Doctors</b></label>
+                  
+                  <mat-chip-listbox>
+                    <hr>
+                    <mat-chip-option *ngFor="let doc of selectedDoctors"  [selected]="" (selectionChange)="changeSelected2(doc)" [removable]="true" (removed)="removeDoctor(doc)">
+                      {{doc}}
+                      <mat-icon matChipRemove></mat-icon>
+                    </mat-chip-option>
+                  </mat-chip-listbox>
+                  <!-- <div class="validateColor" *ngIf="this.bioSection.get('typeControll5')?.hasError('required')">* Pick Doctor</div> -->
+                  
+                  
+                </div >
+
+                
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea class="form-control" id="notes" rows="3" placeholder="Enter notes" [(ngModel)]="surgery.notes" name="notes"></textarea>
+                    <textarea class="form-control" id="notes" rows="3" placeholder="Enter notes" formControlName="notes" [(ngModel)]="notes"  name="notes"></textarea>
                 </div>
 
 
@@ -102,8 +137,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="createSurgery()">Create</button>
+          <button type="button" class="btn btn-secondary"  (click)="formClose()" >Close</button>   
+          <button type="button" class="btn btn-primary" (click)="createSurgeryFunction()">Create</button>   
         </div>
       </div>
     </div>

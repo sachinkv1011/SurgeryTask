@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SurgeryClass } from './surgery-class';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,8 +11,12 @@ export class ApiService {
 
   constructor(private http:HttpClient) { }
 
-   createSurgery(surgery:SurgeryClass):Observable<Object>{
-    return this.http.post("http://localhost:8080/surgery/create",surgery)
+  aFunction():String{
+    return "a";
+  }
+
+   createSurgery(dataTosend:any):Observable<any>{
+    return this.http.post("http://localhost:8080/surgery/create",dataTosend)
    }
 
    viewSurgeryList(){
