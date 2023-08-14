@@ -26,10 +26,10 @@
 
   }
   .table-container {
-    width: 100% !important;
-    overflow-x: scroll;
+    width: 100%;
+    
     }
-    th, td { min-width: 200px; }
+    
 
     @media (max-width: 600px) {
 

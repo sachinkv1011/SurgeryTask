@@ -31,29 +31,26 @@ export class CreateSurgeryPageComponent implements OnInit {
   doctors:any;
 
   bioSection = new FormGroup({
-    typeControll: new FormControl(this.type,Validators.required),
-    typeControll2: new FormControl(this.surgeryName,Validators.required),
-    typeControll3: new FormControl(this.patient,Validators.required),
+    type: new FormControl('',Validators.required),
+    surgeryName: new FormControl('',Validators.required),
+    patient: new FormControl('',Validators.required),
     tools: new FormControl('',Validators.required),
     priority: new FormControl('',Validators.required),
     notes: new FormControl(''),
-    typeControll4: new FormControl(this.surgeryDate,Validators.required),
+    surgeryDate: new FormControl('',Validators.required),
     doctors: new FormControl('',Validators.required)
   });
 
 
-  isDisplay2=false;
+  // isDisplay2=false;
 
-  toggleDisplay2(){
-    this.isDisplay2=!this.isDisplay2;
-  }
-  toggleDisplay3(){
-    this.isDisplay2=!this.isDisplay2;
-  }
+  // toggleDisplay2(){
+  //   this.isDisplay2=!this.isDisplay2;
+  // }
+  // toggleDisplay3(){
+  //   this.isDisplay2=!this.isDisplay2;
+  // }
 
-
-  //  form: FormGroup | undefined;
-    // surgery:SurgeryClass=new SurgeryClass();
 
       data:any=[]
       toolsList:any=[]
@@ -118,15 +115,16 @@ dropdownSettings:IDropdownSettings={};
 
 
 
- createSurgery(){
-  if (this.bioSection.invalid) {
-
-    this.bioSection.markAllAsTouched();
-    alert("Opps ! Required data not submitted..Forms field empty")
+ createSurgeryFunction(){
+  // if (this.type || this.surgeryName || this.patient == "" ) {
+   
+  //   // this.bioSection.invalid
+  //   // this.bioSection.markAllAsTouched();
+  //   alert("Opps ! Required data not submitted..Forms field empty")
     
-  }
+  // }
 
-  else{
+  // else{
    let dataToSend:any={
       "type":this.type,
       "surgeryName":this.surgeryName,
@@ -138,27 +136,28 @@ dropdownSettings:IDropdownSettings={};
       "notes":this.notes
 
    }
-  console.log(dataToSend)
+    console.log(dataToSend)
 
-console.log(this.bioSection.value)
+    console.log(this.bioSection.value)
     
     this.api.createSurgery(dataToSend).subscribe(
       (response:any)=>{
         console.log(response)
-        if(response.status===HttpStatusCode.Accepted){
+        // if(response.status===HttpStatusCode.Accepted){
           this.surgeryList();
           this.fetchTools();
           this.fetchDoc();
           this.selectedDoctors=[]
           this.bioSection.reset();
           this.closeAddExpenseModal.nativeElement.click();
+          this.formClose();
           alert("created successfully")
           
-        }
+        // }
        
       },error=>{console.error(error)})
 
- }
+//  }
 }
 
  changeSelected(event:any){
@@ -187,7 +186,7 @@ formClose(){
 
   this.bioSection.reset();
   this.fetchDoc();
-  this.selectedDoctors=[]
+  this.selectedDoctors=[];
   this.closeAddExpenseModal.nativeElement.click();
 
 }
